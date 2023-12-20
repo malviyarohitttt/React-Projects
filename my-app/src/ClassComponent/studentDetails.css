@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    font-family: 'Poppins',sans-serif;
+}
+.heading{
+    color: #6c757d !important;
+    font-size: 40px;
+    font-weight: 600;
+}
+thead{
+    color: white;
+    background-color: black;
+}
+table{
+    border: 1.5px solid black;
+}
+.tablebody tr:nth-child(even){
+    color: white;
+    background-color: #6c757d;
+    border: 1px solid black;
+}

@@ -10,7 +10,6 @@ function Header() {
   const SignOut = ()=>{
     sessionStorage.clear(); 
     navigate("/")
-    
   }
 
   let currentUser = sessionStorage.getItem("current_user")

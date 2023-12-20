@@ -33,8 +33,10 @@ function Singnin() {
     } 
     catch (err) {
       console.log(err)
+      console.log(err.message)
+      setMsg(err.message+"!")
+      // console.log("Hello Rohit")
     }
-    
   }
   return <>
   <Header/>
@@ -57,8 +59,8 @@ function Singnin() {
               </div>
             </div>
             <div className="btn-box">
-              <button className='btn btn-denger' type="submit">Submit Now</button><br/>
-              <small><b style={{textTransform:"capitalize"}}>{msg}</b></small>
+              <button className='btn btn-denger' type="submit">Submit Now</button><br/><br/>
+              <small><b style={{textTransform:"capitalize",color:"red"}}>{msg}</b></small>
             </div>
           </form>
         </div>

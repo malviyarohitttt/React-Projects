@@ -8,8 +8,9 @@ function Header() {
   const navigate = useNavigate();
 
   const SignOut = ()=>{
-    sessionStorage.clear();
+    sessionStorage.clear(); 
     navigate("/")
+    
   }
 
   let currentUser = sessionStorage.getItem("current_user")

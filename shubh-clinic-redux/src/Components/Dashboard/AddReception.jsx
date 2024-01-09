@@ -12,8 +12,6 @@ function AddReception() {
     const [raddress,setRAddress] = useState();
     const [msg,setMsg] = useState();
 
-
-
     const AddReception = async (event)=>{
         event.preventDefault();
         let token = sessionStorage.getItem('token');
@@ -22,7 +20,6 @@ function AddReception() {
           })
         setMsg(response.data.msg)
         console.log(response.data)
-
     }
   return <>
   <Header/>

@@ -4,34 +4,39 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import axios from 'axios';
 import ApiEndPoint from '../ApiEndPoint/ApiEndPoint';
+import Loading from '../IsLoading/Loading';
 
 function Singnin() {
 
   const [email,setEmail] = useState();
   const [password,setPassword] = useState();
   const [msg,setMsg] = useState();
+  const [loading,setLoading] = useState(false);
+
   const navigate = useNavigate()
   
   const doctorSingnin= async (event)=>{
     event.preventDefault();
     try {
+      setLoading(true);
       let response = await axios.post(ApiEndPoint.doctorSignIn,{email,password})
       // console.log(response.data.type)
-
       if(response.data.status){
-        let currentUser = response.data.data;
+        setLoading(false);
+        let currentUser = response.data.data.user;
         delete currentUser.password;
-        currentUser.type = response.data.type;
-
+        currentUser.type = response.data.data.userType;
         sessionStorage.setItem("current_user", JSON.stringify(currentUser));
-        sessionStorage.setItem("token",response.data.msg);
+        sessionStorage.setItem("token",response.data.data.token);
         navigate("/dashboard/profile")
       }
       else{
+        setLoading(true);
         setMsg(response.data.msg)
       }
     } 
     catch (err) {
+      setLoading(false);
       console.log(err)
       console.log(err.message)
       setMsg(err.message+"!")
@@ -59,8 +64,9 @@ function Singnin() {
               </div>
             </div>
             <div className="btn-box">
-              <button className='btn btn-denger' type="submit">Submit Now</button><br/><br/>
-              <small><b style={{textTransform:"capitalize",color:"red"}}>{msg}</b></small>
+              <button className='btn btn-denger' type="submit">Submit Now</button>
+              {/* <small><b style={{textTransform:"capitalize",color:"red"}}>{msg}</b></small> */}
+              {loading ? <Loading/> : <small><b style={{textTransform:"capitalize",color:"red"}}>{msg}</b></small>}
             </div>
           </form>
         </div>

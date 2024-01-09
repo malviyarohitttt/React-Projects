@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
+import Loading from '../IsLoading/Loading'
 import ApiEndPoint from '../ApiEndPoint/ApiEndPoint'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -11,17 +12,25 @@ function Singnup() {
   const [phoneNumber,setPhoneNumber] = useState();
   const [email,setEmail] = useState();
   const [password,setPassword] = useState();
+  const [msg,setMsg] = useState();
+  const [loading,setLoading] = useState(false);
+
+
   const navigate = useNavigate();
 
   const saveDoctor = async (event)=>{
     event.preventDefault();
-     try {
+    try {
+      setLoading(true);
       let response = await axios.post(ApiEndPoint.doctorSignUp,{name,phoneNumber,email,password});
+      setLoading(false);
       console.log(response.data)
       navigate("/signin")
-     } 
-     catch (err) {
+    } 
+    catch (err) {
       console.log(err)
+      setLoading(false);
+      setMsg(err.message+"!")
      }
   }
   return <>
@@ -53,7 +62,9 @@ function Singnup() {
               </div>
             </div>
             <div className="btn-box">
-              <button type="submit" className="btn ">Submit Now</button>
+              <button type="submit" className="btn ">Submit Now</button><br/>
+              {loading ? <Loading/> : <small><b style={{textTransform:"capitalize",color:"red"}}>{msg}</b></small>}
+              {/* <Loading/> */}
             </div>
           </form>
         </div>
